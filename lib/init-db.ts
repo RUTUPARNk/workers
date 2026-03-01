@@ -1,7 +1,9 @@
 import Database from "better-sqlite3";
 import path from "path";
+import os from "os";
 
-const DB_PATH = path.join(process.cwd(), "factory.db");
+// Vercel serverless environments are read-only except for /tmp
+const DB_PATH = process.env.VERCEL ? path.join(os.tmpdir(), "factory.db") : path.join(process.cwd(), "factory.db");
 
 let _db: Database.Database | null = null;
 
